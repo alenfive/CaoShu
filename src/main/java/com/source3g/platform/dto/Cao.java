@@ -1,6 +1,5 @@
 package com.source3g.platform.dto;
 
-import com.source3g.platform.contants.Direct;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -10,10 +9,5 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 public class Cao {
-    private Direct preDirect = Direct.STAY;
     private GameMap gameMap;
-    public void reset(){
-        preDirect = Direct.STAY;
-        gameMap = null;
-    }
 }

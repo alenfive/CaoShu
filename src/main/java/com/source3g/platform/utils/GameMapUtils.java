@@ -1,6 +1,8 @@
 package com.source3g.platform.utils;
 
+import com.source3g.platform.contants.MapType;
 import com.source3g.platform.dto.PosInfo;
+import com.source3g.platform.dto.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,4 +37,14 @@ public class GameMapUtils {
     }
 
 
+    public static Position findPosInfoByType(PosInfo[][] mapArr, MapType mapType) {
+        for(int i=0;i<mapArr.length;i++){
+            for (int k=0;k<mapArr[i].length;k++){
+                if(mapArr[i][k].hasMapType(mapType)){
+                    return new Position(i,k);
+                }
+            }
+        }
+        return null;
+    }
 }

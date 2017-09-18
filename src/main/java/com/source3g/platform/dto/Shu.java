@@ -1,6 +1,5 @@
 package com.source3g.platform.dto;
 
-import com.source3g.platform.contants.Direct;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -10,8 +9,11 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 public class Shu {
-    private Direct preDirect = Direct.STAY;
-    public void reset(){
-        preDirect = Direct.STAY;
-    }
+    private Position shu1 = null;
+    private Position shu2 = null;
+    private Position shu3 = null;
+    private Position shu4 = null;
+    private Position cao = null;
+    private GameMap gameMap = null;
+
 }
