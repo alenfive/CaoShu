@@ -15,5 +15,6 @@ public class Shu {
     private Position shu4 = null;
     private Position cao = null;
     private GameMap gameMap = null;
+    private ClientRes clientRes = null;
 
 }
