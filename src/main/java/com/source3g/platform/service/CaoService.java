@@ -49,11 +49,12 @@ public class CaoService {
             //斜边的警察
             getWarningDire2(weightDirects,mapArr,position,7);
 
-            //走过的方向
-            getSourceDire(weightDirects,mapArr,position,8);
+            //距边界二公里以内
+            getBorderDire(weightDirects,mapArr,position,8);
 
-            //空况的方向
-            getBlockDire(weightDirects,mapArr,position,9);
+            //障碍物方向
+            getBlockDir(weightDirects,mapArr,position,9);
+
 
             //找到对应权重的路线
             List<WeightDirect> weight10 = getWeight(weightDirects,10);
@@ -62,15 +63,9 @@ public class CaoService {
             List<WeightDirect> weight7 = getWeight(weightDirects,7);
             List<WeightDirect> weight6 = getWeight(weightDirects,6);
 
-            //空况的方向
-            if(!weight9.isEmpty()){
-                ClientRes clientRes = new ClientRes();
-                clientRes.setCao(weight9.get(new Random().nextInt(weight9.size())).getDirect());
-                log.info("value:{},weight:{}",weight9.toString(),9);
-                return clientRes;
-            }
 
-            //如果发现警察，前进的方向中未走过
+
+            //被挑剩下的路
             if(!weight10.isEmpty()){
                 ClientRes clientRes = new ClientRes();
                 clientRes.setCao(weight10.get(new Random().nextInt(weight10.size())).getDirect());
@@ -78,7 +73,14 @@ public class CaoService {
                 return clientRes;
             }
 
-            //如果发现了警察，走走过的方向
+            //边界红线内
+            if(!weight9.isEmpty()){
+                ClientRes clientRes = new ClientRes();
+                clientRes.setCao(weight9.get(new Random().nextInt(weight9.size())).getDirect());
+                log.info("value:{},weight:{}",weight9.toString(),9);
+                return clientRes;
+            }
+            //障碍物方向
             if(!weight8.isEmpty()){
                 ClientRes clientRes = new ClientRes();
                 clientRes.setCao(weight8.get(new Random().nextInt(weight8.size())).getDirect());
@@ -152,23 +154,23 @@ public class CaoService {
     }
 
     //空况的定义：在地图范围内边界减二
-    private void getBlockDire(List<WeightDirect> weightDirects, PosInfo[][] mapArr, Position position, int weight) {
+    private void getBorderDire(List<WeightDirect> weightDirects, PosInfo[][] mapArr, Position position, int weight) {
         //上
-        if(position.getX()-2 > 0){
+        if(position.getX()-2 <= 0){
             setWeightByDirect(weightDirects,Direct.UP,weight);
         }
 
         //右
-        if(position.getY()+3 < cao.getGameMap().getRowLen()){
+        if(position.getY()+3 >= cao.getGameMap().getRowLen()){
             setWeightByDirect(weightDirects,Direct.RIGHT,weight);
         }
 
         //下
-        if(position.getX()+3 < cao.getGameMap().getColLen()){
+        if(position.getX()+3 >= cao.getGameMap().getColLen()){
             setWeightByDirect(weightDirects,Direct.DOWN,weight);
         }
         //左
-        if(position.getY()-2 > 0){
+        if(position.getY()-2 <= 0){
             setWeightByDirect(weightDirects,Direct.LEFT,weight);
         }
     }
@@ -177,7 +179,36 @@ public class CaoService {
         return weightDirects.stream().filter(item->item.getWeight() == weight).collect(Collectors.toList());
     }
 
-    private void getSourceDire(List<WeightDirect> weightDirects ,PosInfo[][] mapArr, Position position,int weight) {
+    private void getBlockDir(List<WeightDirect> weightDirects ,PosInfo[][] mapArr, Position position,int weight) {
+        PosInfo posInfo = null;
+        //上
+        if(position.getX()-2>=0){
+            posInfo = mapArr[position.getX()-2][position.getY()];
+            if(posInfo.isBlock()){
+                setWeightByDirect(weightDirects,Direct.UP,weight);
+            }
+        }
+        //右
+        if(position.getY()+2<cao.getGameMap().getRowLen()){
+            posInfo = mapArr[position.getX()][position.getY()+2];
+            if(posInfo.isBlock()){
+                setWeightByDirect(weightDirects,Direct.RIGHT,weight);
+            }
+        }
+        //下
+        if(position.getX()+2<cao.getGameMap().getColLen()){
+            posInfo = mapArr[position.getX()+2][position.getY()];
+            if(posInfo.isBlock()){
+                setWeightByDirect(weightDirects,Direct.DOWN,weight);
+            }
+        }
+        //左
+        if(position.getY()-2>=0){
+            posInfo = mapArr[position.getX()][position.getY()-2];
+            if(posInfo.isBlock()){
+                setWeightByDirect(weightDirects,Direct.LEFT,weight);
+            }
+        }
 
     }
 
