@@ -32,7 +32,7 @@ public class PlayerController {
 
         PosInfo[][] mapArr = GameMapUtils.listToArray(gameMap.getMap());
         if(GameMapUtils.findPosInfoByType(mapArr, MapType.SHU1) != null){
-            shu.init();
+            shu.init(gameMap.getColLen(),gameMap.getRowLen());
         }
     }
 
