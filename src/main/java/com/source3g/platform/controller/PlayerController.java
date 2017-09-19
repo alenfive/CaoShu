@@ -44,8 +44,8 @@ public class PlayerController {
 
     @PostMapping(path = "/caoMove")
     public ClientRes caoMove(@RequestBody GameMap gameMap){
-        //System.out.println("---------- cao Move");
-        //gameMap.getMap().forEach(System.out::println);
+        System.out.println("---------- cao Move");
+        gameMap.getMap().forEach(System.out::println);
         return caoService.move(gameMap);
     }
 
@@ -53,7 +53,7 @@ public class PlayerController {
     @PostMapping(path = "/shuMove")
     public ClientRes shuMove(@RequestBody GameMap gameMap){
         System.out.println("---------- shu Move");
-        //gameMap.getMap().forEach(System.out::println);
+        gameMap.getMap().forEach(System.out::println);
         if(shu.getRefreshLocal() == null){
             shu.init(gameMap.getColLen(),gameMap.getRowLen());
         }

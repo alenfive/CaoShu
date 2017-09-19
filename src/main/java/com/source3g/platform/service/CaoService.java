@@ -297,6 +297,39 @@ public class CaoService {
             }
         }
 
+
+        //直上
+        if(position.getX()-1>=0){
+            posInfo = mapArr[position.getX()-1][position.getY()];
+            if(hasShuByPosInfo(posInfo)){
+                setWeightByDirect(weightDirects,Direct.LEFT,weight);
+                setWeightByDirect(weightDirects,Direct.RIGHT,weight);
+            }
+        }
+        //直在
+        if(position.getY()+1 < cao.getGameMap().getRowLen()){
+            posInfo = mapArr[position.getX()][position.getY()+1];
+            if(hasShuByPosInfo(posInfo)){
+                setWeightByDirect(weightDirects,Direct.UP,weight);
+                setWeightByDirect(weightDirects,Direct.DOWN,weight);
+            }
+        }
+        //直下
+        if(position.getX()+1 < cao.getGameMap().getColLen()){
+            posInfo = mapArr[position.getX()+1][position.getY()];
+            if(hasShuByPosInfo(posInfo)){
+                setWeightByDirect(weightDirects,Direct.LEFT,weight);
+                setWeightByDirect(weightDirects,Direct.RIGHT,weight);
+            }
+        }
+        //直左
+        if(position.getY()-1 >= 0 ){
+            posInfo = mapArr[position.getX()][position.getY()-1];
+            if(hasShuByPosInfo(posInfo)){
+                setWeightByDirect(weightDirects,Direct.UP,weight);
+                setWeightByDirect(weightDirects,Direct.DOWN,weight);
+            }
+        }
     }
 
     private void setWeightByDirect(List<WeightDirect> weightDirects, Direct direct,int weight) {

@@ -86,7 +86,7 @@ public class ShuService {
         //去走那些没走过的路
         //涂黑走过的路
         flagLocalPosition(1);
-        printlnLocal();
+        //printlnLocal();
         //上一半地图,主shu1,shu2
         int xTop = shu.getGameMap().getColLen()/2-1;
         int xDown = xTop+1;
