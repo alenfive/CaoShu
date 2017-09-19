@@ -117,24 +117,24 @@ public class CaoService {
     private void getWarningDire2(List<WeightDirect> weightDirects, PosInfo[][] mapArr, Position position, int weight) {
         PosInfo posInfo = null;
         //左上
-        if(position.getRowIndex()-2>=0 && position.getColIndex()-2>=0){
-            posInfo = mapArr[position.getRowIndex()-2][position.getColIndex()-2];
+        if(position.getX()-2>=0 && position.getY()-2>=0){
+            posInfo = mapArr[position.getX()-2][position.getY()-2];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.LEFT,weight);
                 setWeightByDirect(weightDirects,Direct.UP,weight);
             }
         }
         //右上
-        if(position.getRowIndex()-2>=0 && position.getColIndex()+2 < cao.getGameMap().getRowLen()){
-            posInfo = mapArr[position.getRowIndex()-2][position.getColIndex()+2];
+        if(position.getX()-2>=0 && position.getY()+2 < cao.getGameMap().getRowLen()){
+            posInfo = mapArr[position.getX()-2][position.getY()+2];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.RIGHT,weight);
                 setWeightByDirect(weightDirects,Direct.UP,weight);
             }
         }
         //右下
-        if(position.getRowIndex()+2 < cao.getGameMap().getColLen() && position.getColIndex()+2 < cao.getGameMap().getRowLen()){
-            posInfo = mapArr[position.getRowIndex()+2][position.getColIndex()+2];
+        if(position.getX()+2 < cao.getGameMap().getColLen() && position.getY()+2 < cao.getGameMap().getRowLen()){
+            posInfo = mapArr[position.getX()+2][position.getY()+2];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.RIGHT,weight);
                 setWeightByDirect(weightDirects,Direct.DOWN,weight);
@@ -142,8 +142,8 @@ public class CaoService {
         }
         //左下
 
-        if(position.getRowIndex()+2 < cao.getGameMap().getColLen() && position.getColIndex()-2>=0){
-            posInfo = mapArr[position.getRowIndex()+2][position.getColIndex()-2];
+        if(position.getX()+2 < cao.getGameMap().getColLen() && position.getY()-2>=0){
+            posInfo = mapArr[position.getX()+2][position.getY()-2];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.LEFT,weight);
                 setWeightByDirect(weightDirects,Direct.DOWN,weight);
@@ -154,21 +154,21 @@ public class CaoService {
     //空况的定义：在地图范围内边界减二
     private void getBlockDire(List<WeightDirect> weightDirects, PosInfo[][] mapArr, Position position, int weight) {
         //上
-        if(position.getRowIndex()-2 > 0){
+        if(position.getX()-2 > 0){
             setWeightByDirect(weightDirects,Direct.UP,weight);
         }
 
         //右
-        if(position.getColIndex()+3 < cao.getGameMap().getRowLen()){
+        if(position.getY()+3 < cao.getGameMap().getRowLen()){
             setWeightByDirect(weightDirects,Direct.RIGHT,weight);
         }
 
         //下
-        if(position.getRowIndex()+3 < cao.getGameMap().getColLen()){
+        if(position.getX()+3 < cao.getGameMap().getColLen()){
             setWeightByDirect(weightDirects,Direct.DOWN,weight);
         }
         //左
-        if(position.getColIndex()-2 > 0){
+        if(position.getY()-2 > 0){
             setWeightByDirect(weightDirects,Direct.LEFT,weight);
         }
     }
@@ -186,81 +186,81 @@ public class CaoService {
 
         PosInfo posInfo = null;
         //上
-        if(position.getRowIndex()-2>=0 && position.getColIndex()-1>=0){
-            posInfo = mapArr[position.getRowIndex()-2][position.getColIndex()-1];
+        if(position.getX()-2>=0 && position.getY()-1>=0){
+            posInfo = mapArr[position.getX()-2][position.getY()-1];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.UP,weight);
             }
         }
-        if(position.getRowIndex()-2>=0){
-            posInfo = mapArr[position.getRowIndex()-2][position.getColIndex()];
+        if(position.getX()-2>=0){
+            posInfo = mapArr[position.getX()-2][position.getY()];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.UP,weight);
             }
         }
-        if(position.getRowIndex()-2>=0 && position.getColIndex()+1<cao.getGameMap().getRowLen()){
-            posInfo = mapArr[position.getRowIndex()-2][position.getColIndex() +1];
+        if(position.getX()-2>=0 && position.getY()+1<cao.getGameMap().getRowLen()){
+            posInfo = mapArr[position.getX()-2][position.getY() +1];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.UP,weight);
             }
         }
 
         //右
-        if(position.getRowIndex()-1>=0 && position.getColIndex()+2 < cao.getGameMap().getRowLen()){
-            posInfo = mapArr[position.getRowIndex()-1][position.getColIndex()+2];
+        if(position.getX()-1>=0 && position.getY()+2 < cao.getGameMap().getRowLen()){
+            posInfo = mapArr[position.getX()-1][position.getY()+2];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.RIGHT,weight);
             }
         }
 
-        if(position.getColIndex()+2 < cao.getGameMap().getRowLen()){
-            posInfo = mapArr[position.getRowIndex()][position.getColIndex()+2];
+        if(position.getY()+2 < cao.getGameMap().getRowLen()){
+            posInfo = mapArr[position.getX()][position.getY()+2];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.RIGHT,weight);
             }
         }
-        if(position.getRowIndex()+1 < cao.getGameMap().getColLen() && position.getColIndex()+2 < cao.getGameMap().getRowLen()){
-            posInfo = mapArr[position.getRowIndex()+1][position.getColIndex()+2];
+        if(position.getX()+1 < cao.getGameMap().getColLen() && position.getY()+2 < cao.getGameMap().getRowLen()){
+            posInfo = mapArr[position.getX()+1][position.getY()+2];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.RIGHT,weight);
             }
         }
 
         //下
-        if(position.getRowIndex()+2 < cao.getGameMap().getColLen() && position.getColIndex()-1 >=0 ){
-            posInfo = mapArr[position.getRowIndex()+2][position.getColIndex()-1];
+        if(position.getX()+2 < cao.getGameMap().getColLen() && position.getY()-1 >=0 ){
+            posInfo = mapArr[position.getX()+2][position.getY()-1];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.DOWN,weight);
             }
         }
-        if(position.getRowIndex()+2 < cao.getGameMap().getColLen()){
-            posInfo = mapArr[position.getRowIndex()+2][position.getColIndex()];
+        if(position.getX()+2 < cao.getGameMap().getColLen()){
+            posInfo = mapArr[position.getX()+2][position.getY()];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.DOWN,weight);
             }
         }
-        if(position.getRowIndex()+2 < cao.getGameMap().getColLen() && position.getColIndex()+1 < cao.getGameMap().getRowLen() ){
-            posInfo = mapArr[position.getRowIndex()+2][position.getColIndex()+1];
+        if(position.getX()+2 < cao.getGameMap().getColLen() && position.getY()+1 < cao.getGameMap().getRowLen() ){
+            posInfo = mapArr[position.getX()+2][position.getY()+1];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.DOWN,weight);
             }
         }
 
         //左
-        if(position.getRowIndex()-1 >=0  && position.getColIndex()-2 >=0 ){
-            posInfo = mapArr[position.getRowIndex()-1][position.getColIndex()-2];
+        if(position.getX()-1 >=0  && position.getY()-2 >=0 ){
+            posInfo = mapArr[position.getX()-1][position.getY()-2];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.LEFT,weight);
             }
         }
-        if(position.getColIndex()-2 >=0 ){
-            posInfo = mapArr[position.getRowIndex()][position.getColIndex()-2];
+        if(position.getY()-2 >=0 ){
+            posInfo = mapArr[position.getX()][position.getY()-2];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.LEFT,weight);
             }
         }
-        if(position.getRowIndex()+1 < cao.getGameMap().getColLen()  && position.getColIndex()-2 >=0 ){
-            posInfo = mapArr[position.getRowIndex()+1][position.getColIndex()-2];
+        if(position.getX()+1 < cao.getGameMap().getColLen()  && position.getY()-2 >=0 ){
+            posInfo = mapArr[position.getX()+1][position.getY()-2];
             if(hasShuByPosInfo(posInfo)){
                 setWeightByDirect(weightDirects,Direct.LEFT,weight);
             }
@@ -280,45 +280,45 @@ public class CaoService {
         //上右下左，四个方向是否越界
 
 
-        if(position.getRowIndex()-1<0){
+        if(position.getX()-1<0){
             diedDire.add(Direct.UP);
         }else{
-            posInfo = mapArr[position.getRowIndex()-1][position.getColIndex()];
+            posInfo = mapArr[position.getX()-1][position.getY()];
             if(posInfo.isBlock() || hasShuByPosInfo(posInfo)){
                 diedDire.add(Direct.UP);
             }
         }
 
-        if(position.getColIndex()+1>=cao.getGameMap().getRowLen()){
+        if(position.getY()+1>=cao.getGameMap().getRowLen()){
             diedDire.add(Direct.RIGHT);
         }else {
-            posInfo = mapArr[position.getRowIndex()][position.getColIndex()+1];
+            posInfo = mapArr[position.getX()][position.getY()+1];
             if(posInfo.isBlock() || hasShuByPosInfo(posInfo)){
                 diedDire.add(Direct.RIGHT);
             }
         }
 
-        if(position.getRowIndex()+1>=cao.getGameMap().getColLen()){
+        if(position.getX()+1>=cao.getGameMap().getColLen()){
             diedDire.add(Direct.DOWN);
         }else {
-            posInfo = mapArr[position.getRowIndex()+1][position.getColIndex()];
+            posInfo = mapArr[position.getX()+1][position.getY()];
             if(posInfo.isBlock() || hasShuByPosInfo(posInfo)){
                 diedDire.add(Direct.DOWN);
             }
         }
 
-        if(position.getColIndex()-1<0){
+        if(position.getY()-1<0){
             diedDire.add(Direct.LEFT);
         }else{
-            posInfo = mapArr[position.getRowIndex()][position.getColIndex()-1];
+            posInfo = mapArr[position.getX()][position.getY()-1];
             if(posInfo.isBlock() || hasShuByPosInfo(posInfo)){
                 diedDire.add(Direct.LEFT);
             }
         }
 
         //左上，存在
-        if(position.getRowIndex()-1>=0 && position.getColIndex()-1>=0){
-            posInfo = mapArr[position.getRowIndex()-1][position.getColIndex()-1];
+        if(position.getX()-1>=0 && position.getY()-1>=0){
+            posInfo = mapArr[position.getX()-1][position.getY()-1];
             if(hasShuByPosInfo(posInfo)){
                 diedDire.add(Direct.LEFT);
                 diedDire.add(Direct.UP);
@@ -326,8 +326,8 @@ public class CaoService {
         }
 
         //右上，存在
-        if(position.getRowIndex()-1>=0 && position.getColIndex()+1<cao.getGameMap().getRowLen()){
-            posInfo = mapArr[position.getRowIndex()-1][position.getColIndex()+1];
+        if(position.getX()-1>=0 && position.getY()+1<cao.getGameMap().getRowLen()){
+            posInfo = mapArr[position.getX()-1][position.getY()+1];
             if (hasShuByPosInfo(posInfo)){
                 diedDire.add(Direct.UP);
                 diedDire.add(Direct.RIGHT);
@@ -335,8 +335,8 @@ public class CaoService {
         }
 
         //右下，存在
-        if(position.getRowIndex()+1<cao.getGameMap().getColLen() && position.getColIndex()+1<cao.getGameMap().getRowLen()){
-            posInfo = mapArr[position.getRowIndex()+1][position.getColIndex()+1];
+        if(position.getX()+1<cao.getGameMap().getColLen() && position.getY()+1<cao.getGameMap().getRowLen()){
+            posInfo = mapArr[position.getX()+1][position.getY()+1];
             if (hasShuByPosInfo(posInfo)){
                 diedDire.add(Direct.DOWN);
                 diedDire.add(Direct.RIGHT);
@@ -344,8 +344,8 @@ public class CaoService {
         }
 
         //左下，存在
-        if(position.getRowIndex()+1<cao.getGameMap().getColLen() && position.getColIndex()-1>=0){
-            posInfo = mapArr[position.getRowIndex()+1][position.getColIndex()-1];
+        if(position.getX()+1<cao.getGameMap().getColLen() && position.getY()-1>=0){
+            posInfo = mapArr[position.getX()+1][position.getY()-1];
             if (hasShuByPosInfo(posInfo)){
                 diedDire.add(Direct.DOWN);
                 diedDire.add(Direct.LEFT);

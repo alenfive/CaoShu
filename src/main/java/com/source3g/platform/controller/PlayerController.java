@@ -1,11 +1,10 @@
 package com.source3g.platform.controller;
 
-import com.source3g.platform.dto.Cao;
-import com.source3g.platform.dto.ClientRes;
-import com.source3g.platform.dto.GameMap;
-import com.source3g.platform.dto.Shu;
+import com.source3g.platform.contants.MapType;
+import com.source3g.platform.dto.*;
 import com.source3g.platform.service.CaoService;
 import com.source3g.platform.service.ShuService;
+import com.source3g.platform.utils.GameMapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +29,11 @@ public class PlayerController {
     public void start(@RequestBody GameMap gameMap){
         System.out.println("----------");
         gameMap.getMap().forEach(System.out::println);
+
+        PosInfo[][] mapArr = GameMapUtils.listToArray(gameMap.getMap());
+        if(GameMapUtils.findPosInfoByType(mapArr, MapType.SHU1) != null){
+            shu.init();
+        }
     }
 
     @GetMapping(path = "/stop")
