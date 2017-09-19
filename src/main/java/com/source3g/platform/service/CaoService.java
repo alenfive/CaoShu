@@ -44,7 +44,10 @@ public class CaoService {
 
             //权重从低到高，不允许覆盖
             //警告线
-            getWarningDire(weightDirects,mapArr,position,7);
+            getWarningDire(weightDirects,mapArr,position,6);
+
+            //斜边的警察
+            getWarningDire2(weightDirects,mapArr,position,7);
 
             //走过的方向
             getSourceDire(weightDirects,mapArr,position,8);
@@ -57,6 +60,7 @@ public class CaoService {
             List<WeightDirect> weight9 = getWeight(weightDirects,9);
             List<WeightDirect> weight8 = getWeight(weightDirects,8);
             List<WeightDirect> weight7 = getWeight(weightDirects,7);
+            List<WeightDirect> weight6 = getWeight(weightDirects,6);
 
             //空况的方向
             if(!weight9.isEmpty()){
@@ -81,13 +85,24 @@ public class CaoService {
                 log.info("value:{},weight:{}",weight8.toString(),8);
                 return clientRes;
             }
-            //如果到处都有警察，随便走吧，反正马上就死了
+
+            //斜边的警察
             if(!weight7.isEmpty()){
                 ClientRes clientRes = new ClientRes();
                 clientRes.setCao(weight7.get(new Random().nextInt(weight7.size())).getDirect());
                 log.info("value:{},weight:{}",weight7.toString(),7);
                 return clientRes;
             }
+
+            //直边的警察
+            //如果到处都有警察，随便走吧，反正马上就死了
+            if(!weight6.isEmpty()){
+                ClientRes clientRes = new ClientRes();
+                clientRes.setCao(weight6.get(new Random().nextInt(weight6.size())).getDirect());
+                log.info("value:{},weight:{}",weight6.toString(),6);
+                return clientRes;
+            }
+
         }
 
         log.info(ableDirect.toString());
@@ -97,6 +112,43 @@ public class CaoService {
         if(ableDirect.isEmpty())ableDirect.add(Direct.STAY);
         clientRes.setCao(ableDirect.get(new Random().nextInt(ableDirect.size())));
         return clientRes;
+    }
+
+    private void getWarningDire2(List<WeightDirect> weightDirects, PosInfo[][] mapArr, Position position, int weight) {
+        PosInfo posInfo = null;
+        //左上
+        if(position.getRowIndex()-2>=0 && position.getColIndex()-2>=0){
+            posInfo = mapArr[position.getRowIndex()-2][position.getColIndex()-2];
+            if(hasShuByPosInfo(posInfo)){
+                setWeightByDirect(weightDirects,Direct.LEFT,weight);
+                setWeightByDirect(weightDirects,Direct.UP,weight);
+            }
+        }
+        //右上
+        if(position.getRowIndex()-2>=0 && position.getColIndex()+2 < cao.getGameMap().getRowLen()){
+            posInfo = mapArr[position.getRowIndex()-2][position.getColIndex()+2];
+            if(hasShuByPosInfo(posInfo)){
+                setWeightByDirect(weightDirects,Direct.RIGHT,weight);
+                setWeightByDirect(weightDirects,Direct.UP,weight);
+            }
+        }
+        //右下
+        if(position.getRowIndex()+2 < cao.getGameMap().getColLen() && position.getColIndex()+2 < cao.getGameMap().getRowLen()){
+            posInfo = mapArr[position.getRowIndex()+2][position.getColIndex()+2];
+            if(hasShuByPosInfo(posInfo)){
+                setWeightByDirect(weightDirects,Direct.RIGHT,weight);
+                setWeightByDirect(weightDirects,Direct.DOWN,weight);
+            }
+        }
+        //左下
+
+        if(position.getRowIndex()+2 < cao.getGameMap().getColLen() && position.getColIndex()-2>=0){
+            posInfo = mapArr[position.getRowIndex()+2][position.getColIndex()-2];
+            if(hasShuByPosInfo(posInfo)){
+                setWeightByDirect(weightDirects,Direct.LEFT,weight);
+                setWeightByDirect(weightDirects,Direct.DOWN,weight);
+            }
+        }
     }
 
     //空况的定义：在地图范围内边界减二
@@ -214,39 +266,6 @@ public class CaoService {
             }
         }
 
-        //左上
-        if(position.getRowIndex()-2>=0 && position.getColIndex()-2>=0){
-            posInfo = mapArr[position.getRowIndex()-2][position.getColIndex()-2];
-            if(hasShuByPosInfo(posInfo)){
-                setWeightByDirect(weightDirects,Direct.LEFT,weight);
-                setWeightByDirect(weightDirects,Direct.UP,weight);
-            }
-        }
-        //右上
-        if(position.getRowIndex()-2>=0 && position.getColIndex()+2 < cao.getGameMap().getRowLen()){
-            posInfo = mapArr[position.getRowIndex()-2][position.getColIndex()+2];
-            if(hasShuByPosInfo(posInfo)){
-                setWeightByDirect(weightDirects,Direct.RIGHT,weight);
-                setWeightByDirect(weightDirects,Direct.UP,weight);
-            }
-        }
-        //右下
-        if(position.getRowIndex()+2 < cao.getGameMap().getColLen() && position.getColIndex()+2 < cao.getGameMap().getRowLen()){
-            posInfo = mapArr[position.getRowIndex()+2][position.getColIndex()+2];
-            if(hasShuByPosInfo(posInfo)){
-                setWeightByDirect(weightDirects,Direct.RIGHT,weight);
-                setWeightByDirect(weightDirects,Direct.DOWN,weight);
-            }
-        }
-        //左下
-
-        if(position.getRowIndex()+2 < cao.getGameMap().getColLen() && position.getColIndex()-2>=0){
-            posInfo = mapArr[position.getRowIndex()+2][position.getColIndex()-2];
-            if(hasShuByPosInfo(posInfo)){
-                setWeightByDirect(weightDirects,Direct.LEFT,weight);
-                setWeightByDirect(weightDirects,Direct.DOWN,weight);
-            }
-        }
     }
 
     private void setWeightByDirect(List<WeightDirect> weightDirects, Direct direct,int weight) {
