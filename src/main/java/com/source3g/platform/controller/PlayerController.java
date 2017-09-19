@@ -4,6 +4,7 @@ import com.source3g.platform.contants.MapType;
 import com.source3g.platform.dto.*;
 import com.source3g.platform.service.CaoService;
 import com.source3g.platform.service.ShuService;
+import com.source3g.platform.utils.AStar;
 import com.source3g.platform.utils.GameMapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +44,8 @@ public class PlayerController {
 
     @PostMapping(path = "/caoMove")
     public ClientRes caoMove(@RequestBody GameMap gameMap){
-        System.out.println("---------- cao Move");
-        gameMap.getMap().forEach(System.out::println);
+        //System.out.println("---------- cao Move");
+        //gameMap.getMap().forEach(System.out::println);
         return caoService.move(gameMap);
     }
 
@@ -52,7 +53,10 @@ public class PlayerController {
     @PostMapping(path = "/shuMove")
     public ClientRes shuMove(@RequestBody GameMap gameMap){
         System.out.println("---------- shu Move");
-        gameMap.getMap().forEach(System.out::println);
+        //gameMap.getMap().forEach(System.out::println);
+        if(shu.getRefreshLocal() == null){
+            shu.init(gameMap.getColLen(),gameMap.getRowLen());
+        }
         return shuService.move(gameMap);
     }
 }

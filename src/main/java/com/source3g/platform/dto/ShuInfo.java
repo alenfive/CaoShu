@@ -4,6 +4,8 @@ import com.source3g.platform.contants.Direct;
 import com.source3g.platform.contants.MapType;
 import lombok.Data;
 
+import java.util.Random;
+
 /**
  * Created by Administrator on 9/19/2017.
  */
@@ -13,8 +15,10 @@ public class ShuInfo {
     private Position selfPosition;
     private Position caoPosition;
     private Direct nextDirect;
+    private Position target;
 
     public ShuInfo(MapType id){
         this.id = id;
     }
+
 }
